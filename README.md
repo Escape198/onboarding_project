@@ -34,7 +34,7 @@ This project implements a simplified onboarding funnel with a landing page, a th
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Escape198/onboarding_project
 cd onboarding_project
 ```
 
