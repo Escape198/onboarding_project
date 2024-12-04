@@ -18,8 +18,9 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
+            background-color: #f9f9f9;
         }
-        
+
         button {
             background-color: #007BFF;
             color: white;
@@ -29,13 +30,14 @@
             cursor: pointer;
             font-size: 16px;
         }
-        
+
         button:hover {
             background-color: #0056b3;
         }
-        
+
         video {
             width: 100%;
+            height: auto;
             border-radius: 8px;
             margin-bottom: 20px;
         }
@@ -44,35 +46,35 @@
 <body>
     <div class="container">
         <h2>Step 2: Watch this video</h2>
-        <video autoplay muted loop>
-            <source src="../assets/video.mp4" type="video/mp4">
+        <video controls>
+            <source src="https://cdn.getglam.app/content/paywalls/240515_web2web_video1_v04.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <button id="next">Next</button>
     </div>
     <script>
         function completeStep(step, nextPage) {
-        const userId = localStorage.getItem('user_id');
-        if (!userId) {
-            alert('User not found. Please restart.');
-            window.location.href = '../index.html';
-            return;
-        }
-
-        fetch('http://localhost:8000/onboarding/complete-step', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_id: parseInt(userId), step: step })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                window.location.href = nextPage;
-            } else {
-                alert('Failed to complete the step');
+            const userId = localStorage.getItem('user_id');
+            if (!userId) {
+                alert('User not found. Please restart.');
+                window.location.href = '../index.html';
+                return;
             }
-        });
-    }
+
+            fetch('http://localhost:8000/onboarding/complete-step', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: parseInt(userId), step: step })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    window.location.href = nextPage;
+                } else {
+                    alert('Failed to complete the step');
+                }
+            });
+        }
     </script>
     <script>
         document.getElementById('next').addEventListener('click', () => {
